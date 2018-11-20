@@ -1,0 +1,17 @@
+amqp==1.4.9
+anyjson==0.3.3
+billiard==3.3.0.23
+celery==3.1.26.post2
+Django==2.1.1
+django-celery==3.2.2
+django-cors-headers==2.4.0
+django-filter==2.0.0
+django-rest-auth==0.9.3
+djangorestframework==3.8.2
+kombu==3.0.37
+Pillow==5.3.0
+psycopg2==2.7.5
+psycopg2-binary==2.7.5
+pytz==2018.5
+six==1.11.0
+vine==1.1.4

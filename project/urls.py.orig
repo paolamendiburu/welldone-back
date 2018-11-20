@@ -1,0 +1,46 @@
+"""welldone URL Configuration
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/2.1/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.urls import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+"""
+from django.conf import settings
+from django.conf.urls.static import static
+
+from django.contrib import admin
+from django.urls import path
+from django.conf.urls import include
+from articles.api import ArticleViewSet, MyArticleViewSet, UserViewSet, CategoryViewSet, CommentViewSet, FollowViewSet, FavoriteViewSet
+from rest_framework import routers
+from articles.views import Login
+from articles.views import recover_password
+
+from .views import login
+from users.api import UserViewSet
+from users.views import recover_password
+
+router = routers.DefaultRouter()
+router.register('users', UserViewSet, base_name='users')
+router.register('articles', ArticleViewSet, base_name='articles')
+router.register('categories', CategoryViewSet, base_name='categories')
+router.register('my-articles', MyArticleViewSet, base_name='api-articles-mine')
+router.register('comments', CommentViewSet, base_name='comments')
+router.register('follows', FollowViewSet, base_name='follows')
+router.register('favorites', FavoriteViewSet, base_name='favorites')
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('api/v1/', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls')),
+    path('api/v1/login', login),
+    path('api/v1/recover-password', recover_password)
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
